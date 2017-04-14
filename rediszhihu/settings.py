@@ -191,7 +191,3 @@ USER_AGENT_LIST = [
 ]
 
 IP_LIST = ['http://101.200.83.130:8787']
-
-# ACCOUNT_LIST = [{'email': '383821949@qq.com', 'password': 'a5196264'},
-#                {'email': 'zhenxinaini38@vip.qq.com', 'password': 'a5196264'}]
-ACCOUNT_LIST = [{'email': '383821949@qq.com', 'password': 'a5196264'}]
