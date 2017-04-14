@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 UsersConfig = {
     # 代理
-    'proxy': 'http://101.200.39.80:8787',
+    'proxy': '',
 
     # 知乎用户名和密码
-    'email': '383821949@qq.com',
-    'password': 'a5196264',
+    'email': '',
+    'password': '',
 }
 
 DbConfig = {
