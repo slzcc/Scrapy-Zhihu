@@ -1,5 +1,5 @@
 # 知乎 API 爬虫
-进入项目后直接执行 main.py 即可,需要在本地准备 Redis 和 Mongo 服务，默认会读取 localhost 地址，端口都是默认如果需要修改请更改 sttings.py 参数。
+进入项目后直接执行 main.py 即可,需要在本地准备 Redis 和 Mongo 服务，默认会读取 localhost 地址，端口都是默认如果需要修改请更改 sttings.py 内的参数。
 登入成功后会从 Redis lists 里面获取 url 地址进行爬取，这时候手动执行:
 ```
 lpush zhihu:start_urls https://www.zhihu.com/api/v4/members/stone-cok/followees?include=data%5B*%5D.url_token&offset=0&per_page=30&limit=30
