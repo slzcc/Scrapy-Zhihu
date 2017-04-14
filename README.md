@@ -10,3 +10,8 @@ lpush zhihu:start_urls https://www.zhihu.com/api/v4/members/stone-cok/followees?
 ```
 lrange zhihu:start_urls 0 -1
 ```
+
+最终数据会被保存在 Mongo 里面，请事先保证本地 Python 环境具备所需的包，可以使用 pip 安装：
+```
+pip install -t package.txt
+```
