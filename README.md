@@ -17,7 +17,7 @@ Mongo 会保存 Cookie 信息，和最终爬取的用户信息, 使用的库名�
 $ docker run --rm -it -v ${PWD}/code:/Scrapy-Zhihu/code --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:latest python rediszhihu/login.py
 ```
 执行上述命令后会让你填写用户，密码，验证码，验证码需要手动查看 `~/code/code.gif` 图片内容进行填写。
-如果成功登入会把 Cookie 保存到 Mongo 的 scrapy_session 库里面, 这里默认会让你输入两次账号密码同一个账号也是没问题的。
+如果成功登入会把 Cookie 保存到本地的 Mongo 的 scrapy_session 库里面, 如果本地没有 Mongo 请修改下面的环境变量进行修改, 这里默认会让你输入两次账号密码同一个账号也是没问题的。
 >建议: 登入的 Cookie 可以设置多个，如果想避免被屏蔽，这里建议使用不同的账号获取 Cookie，这里没有试验 Cookie 数量的上限值, 不做概述。
 
 拿到 Cookie 后需要设置 Mongo 与 Redis 的服务器地址与端口, 默认`localhost`, 可自定义环境变量:
