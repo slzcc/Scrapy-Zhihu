@@ -45,14 +45,14 @@ class ZhiHu():
     def show_or_save_captcha(self, url):
         global _session
         r = _session.get(url, headers=header_data, verify=True)
-        with open("code.gif", 'wb') as f:
+        with open("./code/code.gif", 'wb') as f:
             f.write(r.content)
         # 显示验证码
         try:
-            im = Image.open("code.gif")
+            im = Image.open("./code/code.gif")
             im.show()
         except:
-            print("请打开下载的验证码文件code.gif")
+            print("请打开下载的验证码文件 code.gif")
 
     def input_data(self):
         global email
