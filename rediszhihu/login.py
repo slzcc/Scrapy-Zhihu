@@ -93,7 +93,7 @@ class ZhiHu():
             print('sign in successful')
 
             # self.save_cookies()
-            os.remove("code.gif")
+            os.remove("./code/code.gif")
 
             cookie = _session.cookies.get_dict()
             print(cookie)
