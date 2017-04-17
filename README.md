@@ -1,8 +1,14 @@
 # Scrapy 爬虫登入 `知乎网` 使用 `API` 爬取用户信息
+在使用此项目时请先了解 Scrapy 项目源码如何实现的:
+```
+$ git clone https://github.com/slzcc/Scrapy-Zhihu.git
+```
+
 这里的爬虫已经结合 Docker , 由于没有使用多线程工作所以这里使用 Docker 启动特定数量的服务进行爬数据, 镜像拉去地址:
 ```
 $ docker pull registry.aliyuncs.com/slzcc/scrapy_zhihu:mongo
 ```
+
 项目内有 `Dockerfile` 提供参考。
 
 用到的服务列表:
