@@ -33,7 +33,13 @@ MONGODB_DB_DOCNAME=user_information
 ```
 $ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:latest
 ```
-请自行修改环境变量适合自己的环境执行爬虫的启动。
+请自行修改环境变量适合自己的环境执行爬虫的启动, 测试开启数十个容器进行爬取数据无任何问题。
+
+可以使用 `Swarm` 集群模式启动 10 数量的服务:
+```
+$ docker service create --name scrapy_zhihu -e MONGODB_DB_HOST=127.0.0.1 -e REDIS_DB_HOST=127.0.0.1 --replicas 10 registry.aliyuncs.com/slzcc/scrapy_zhihu:latest
+```
+
 因为默认爬虫是会在 Redis 队列获取 URL 进行爬取的，所以需要手动填入 URL 进行爬虫的激活，进入 Rdis 后执行:
 ```
 lrange zhihu:start_urls 0 -1
