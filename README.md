@@ -54,4 +54,9 @@ lpush zhihu:start_urls https://www.zhihu.com/api/v4/members/stone-cok/followees?
 ```
 $ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:latest python rediszhihu/remove_abandoned_cookie.py
 ```
-如果 Cookie 没问题会打印，如果有问题会先打印出有问题的 Cookie 并删除。
+如果 Cookie 没问题会打印，如果有问题会先打印出有问题的 Cookie 并删除，容器执行完会自动退出，这里需要配合集群进行启动从而保证 Cookie 验证容器持续存。
+
+队列展示图:
+
+数据展示图:
+
