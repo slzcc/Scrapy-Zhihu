@@ -1,0 +1,6 @@
+scrapy_redis
+pymongo
+redis
+Scrapy
+requests
+Pillow
