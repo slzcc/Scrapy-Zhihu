@@ -1,6 +1,6 @@
 FROM registry.aliyuncs.com/slzcc/python:3
 RUN git clone -b docker https://github.com/slzcc/Scrapy-Zhihu.git && \
-    pip install package.txt && \
+    pip install -r package.txt && \
     cd Scrapy-Zhihu && \
 
 ENV REDIS_DB_HOST=127.0.0.1 \
