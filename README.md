@@ -46,7 +46,7 @@ $ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:mongo
 $ docker service create --name scrapy_zhihu -e MONGODB_DB_HOST=127.0.0.1 -e REDIS_DB_HOST=127.0.0.1 --replicas 10 registry.aliyuncs.com/slzcc/scrapy_zhihu:mongo
 ```
 
-因为默认爬虫是会在 Redis 队列获取 URL 进行爬取的，所以需要手动填入 URL 进行爬虫的激活，进入 Rdis 后执行:
+因为默认爬虫是会在 Redis 队列获取 URL 进行爬取的，所以需要手动填入 URL 进行爬虫的激活，进入 Redis 后执行:
 ```
 lrange zhihu:start_urls 0 -1
 lpush zhihu:start_urls https://www.zhihu.com/api/v4/members/stone-cok/followees?include=data%5B*%5D.url_token&offset=0&per_page=30&limit=30
