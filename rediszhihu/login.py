@@ -48,11 +48,11 @@ class ZhiHu():
         with open("./code/code.gif", 'wb') as f:
             f.write(r.content)
         # 显示验证码
-        try:
-            im = Image.open("./code/code.gif")
-            im.show()
-        except:
-            print("请打开下载的验证码文件 code.gif")
+#        try:
+#            im = Image.open("./code/code.gif")
+#            im.show()
+#        except:
+#            print("请打开下载的验证码文件 code.gif")
 
     def input_data(self):
         global email
