@@ -6,8 +6,8 @@ $ docker pull registry.aliyuncs.com/slzcc/scrapy_zhihu:0.4.1
 项目内有 `Dockerfile` 提供参考。
 
 用到的服务列表:
-  Mongo
-  Redis
+ *  Mongo
+ *  Redis
 
 Redis 使用 Lists 队列保存需要爬取的 URL，这里是爬虫自己回去添加列表, 队列名称为 `zhihu:start_urls`。
 Mongo 会保存 Cookie 信息，和最终爬取的用户信息, 使用的库名为 `scrapy_session`, `zhihu`。
