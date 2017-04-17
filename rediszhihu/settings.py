@@ -116,7 +116,7 @@ SCHEDULER_PERSIST = True
 SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderPriorityQueue"
 
 REDIS_HOST = os.getenv('REDIS_DB_HOST')
-REDIS_PORT = int(os.getenv('REIDS_DB_PORT'))
+REDIS_PORT = int(os.getenv('REDIS_DB_PORT'))
 
 
 MONGODB_HOST = os.getenv('MONGODB_DB_HOST')
