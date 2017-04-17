@@ -1,5 +1,5 @@
 FROM registry.aliyuncs.com/slzcc/python:3
-RUN git clone https://github.com/slzcc/Scrapy-Zhihu.git && \
+RUN git clone -b docker https://github.com/slzcc/Scrapy-Zhihu.git && \
     cd Scrapy-Zhihu && \
     pip install package.txt
 
