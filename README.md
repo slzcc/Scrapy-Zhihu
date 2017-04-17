@@ -60,6 +60,12 @@ $ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:latest pytho
 爬虫使用了 `Middleware` 中间件进行用户的 Cookie 、User-Agent 的动态变更，并且已对 Proxy 进行了配置，如果需要请打开 `settings.py` 的 `rediszhihu.middlewares.ProxyMiddleware` 注释。并
 定义 `settings.py` 里面的 `IP_LIST` 列表这是使用代理的 IP 池，默认填写了一个。
 
+## 爬取用户信息数量查询
+查看已经爬取用户信息的数量，可以使用内置已经写好的方法进行查询:
+```
+$ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:latest python rediszhihu/number_queries.py
+```
+
 队列展示图:
 ![Redis Lists up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-mongo/template/redis.png)
 数据展示图:
