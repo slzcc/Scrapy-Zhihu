@@ -18,7 +18,7 @@ urls= 'https://www.zhihu.com/api/v4/members/stone-cok/followees?include=data%5B*
 
 MONGODB_HOST = os.getenv('MONGODB_DB_HOST')
 MONGODB_PORT = int(os.getenv('MONGODB_DB_PORT'))
-TimeCounter = int(os.getenv('Time'))
+TimeCounter = int(os.getenv('TimeCounter'))
 
 conn = MongoClient(MONGODB_HOST, MONGODB_PORT)
 
