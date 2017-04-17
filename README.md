@@ -1,4 +1,9 @@
-# Scrapy 爬取 知乎网 用户信息并使用 Docker 进行爬取数据
+# Scrapy 爬虫登入 `知乎网` 使用 `API` 爬取用户信息
+这里的爬虫已经结合 Docker , 由于没有使用多线程工作所以这里使用 Docker 启动特定数量的服务进行爬数据, 镜像拉去地址:
+```
+$ docker pull registry.aliyuncs.com/slzcc/scrapy_zhihu:0.4.1
+```
+项目内有 `Dockerfile` 提供参考。
 
 用到的服务列表:
   Mongo
@@ -29,3 +34,9 @@ MONGODB_DB_DOCNAME=user_information
 $ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:0.3.1
 ```
 请自行修改环境变量适合自己的环境执行爬虫的启动。
+因为默认爬虫是会在 Redis 队列获取 URL 进行爬取的，所以需要手动填入 URL 进行爬虫的激活，进入 Rdis 后执行:
+```
+lrange zhihu:start_urls 0 -1
+lpush zhihu:start_urls https://www.zhihu.com/api/v4/members/stone-cok/followees?include=data%5B*%5D.url_token&offset=0&per_page=30&limit=30
+```
+第一条命令是创建 `zhihu:start_urls` 队列，第二条是 URL 地址。
