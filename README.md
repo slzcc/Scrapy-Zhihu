@@ -56,10 +56,13 @@ $ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:latest pytho
 ```
 如果 Cookie 没问题会打印，如果有问题会先打印出有问题的 Cookie 并删除，容器执行完会自动退出，这里需要配合集群进行启动从而保证 Cookie 验证容器持续存。
 
+## 中间件说明
+爬虫使用了 `Middleware` 中间件进行用户的 Cookie 、User-Agent 的动态变更，并且已对 Proxy 进行了配置，如果需要请打开 `settings.py` 的 `rediszhihu.middlewares.ProxyMiddleware` 注释。并
+定义 `settings.py` 里面的 `IP_LIST` 列表这是使用代理的 IP 池，默认填写了一个。
+
 队列展示图:
 ![Redis Lists up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-mongo/template/redis.png)
 数据展示图:
 ![Mongo lists up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-mongo/template/mongo01.png)
 ![Mongo user_info up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-mongo/template/mongo02.png)
 
-爬虫使用了 `Middleware` 中间件进行用户的 Cookie 、User-Agent 的动态变更，并且已对 Proxy 进行了配置，如果需要请打开 `settings.py` 的 `rediszhihu.middlewares.ProxyMiddleware` 注释。并定义 `settings.py` 里面的 `IP_LIST` 列表这是使用代理的 IP 池，默认填写了一个。 
