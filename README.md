@@ -61,3 +61,5 @@ $ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:latest pytho
 数据展示图:
 ![Mongo lists up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-mongo/template/mongo01.png)
 ![Mongo user_info up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-mongo/template/mongo02.png)
+
+爬虫使用了 `Middleware` 中间件进行用户的 Cookie 、User-Agent 的动态变更，并且已对 Proxy 进行了配置，如果需要请打开 `settings.py` 的 `rediszhihu.middlewares.ProxyMiddleware` 注释。并定义 `settings.py` 里面的 `IP_LIST` 列表这是使用代理的 IP 池，默认填写了一个。 
