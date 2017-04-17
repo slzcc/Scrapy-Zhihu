@@ -69,6 +69,5 @@ $ docker run --rm -i --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:latest 
 队列展示图:
 ![Redis Lists up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-mongo/template/redis.png)
 数据展示图:
-![Mongo lists up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-mongo/template/mongo01.png)
-![Mongo user_info up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-mongo/template/mongo02.png)
-
+![Mongo lists up](https://github.com/slzcc/Scrapy-Zhihu/blob/master/template/mongo01.png)
+![Mongo user_info up](https://github.com/slzcc/Scrapy-Zhihu/blob/master/template/mongo02.png)
