@@ -7,6 +7,7 @@
 
 from scrapy import signals
 import random
+import os
 from scrapy.conf import settings
 from pymongo import MongoClient
 
@@ -75,9 +76,10 @@ class ProxyMiddleware(object):
 
 cookie_list = []
 
-MONGO_DB_HOST = settings.MONGODB_HOST
-MONGO_DB_PORT = settings.MONGODB_PORT
-conn = MongoClient(MONGO_DB_HOST, MONGO_DB_PORT)
+MONGODB_HOST = os.getenv('MONGODB_DB_HOST')
+MONGODB_PORT = os.getenv('MONGODB_DB_PORT')
+
+conn = MongoClient(MONGODB_HOST, MONGODB_PORT)
 
 db = conn.scrapy_session
 

@@ -121,6 +121,7 @@ REDIS_PORT = os.getenv('REIDS_DB_PORT')
 
 MONGODB_HOST = os.getenv('MONGODB_DB_HOST')
 MONGODB_PORT = os.getenv('MONGODB_DB_PORT')
+
 MONGODB_DBNAME = 'zhihu'
 MONGODB_DOCNAME = 'user_information'
 

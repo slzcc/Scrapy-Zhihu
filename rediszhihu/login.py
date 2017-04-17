@@ -4,8 +4,8 @@ import requests, re, json, time, os, os.path, sys
 from PIL import Image
 import traceback
 import json
+import os
 from pymongo import MongoClient
-from scrapy.conf import settings
 
 
 # 模拟知乎登陆，主要是获取验证码登陆
@@ -24,11 +24,10 @@ header_data = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,
 
                }
 
+MONGODB_HOST = os.getenv('MONGODB_DB_HOST')
+MONGODB_PORT = os.getenv('MONGODB_DB_PORT')
 
-MONGO_DB_HOST = settings.MONGODB_HOST
-MONGO_DB_PORT = settings.MONGODB_PORT
-
-conn = MongoClient(MONGO_DB_HOST, MONGO_DB_PORT)
+conn = MongoClient(MONGODB_HOST, MONGODB_PORT)
 
 db = conn.scrapy_session
 
