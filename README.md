@@ -40,3 +40,5 @@ lrange zhihu:start_urls 0 -1
 lpush zhihu:start_urls https://www.zhihu.com/api/v4/members/stone-cok/followees?include=data%5B*%5D.url_token&offset=0&per_page=30&limit=30
 ```
 第一条命令是创建 `zhihu:start_urls` 队列，第二条是 URL 地址。
+
+友情提示: 每个容器会占用 40MB+ 内存大小，请根据自己需求开启容器的数量。
