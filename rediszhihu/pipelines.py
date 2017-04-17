@@ -17,6 +17,6 @@ class RediszhihuPipeline(object):
         self.post = db[settings['MONGODB_DOCNAME']]
 
     def process_item(self, item, spider):
-        book_info = dict(item)
-        self.post.insert(book_info)
+        info = dict(item)
+        self.post.insert(info)
         return item

@@ -6,7 +6,9 @@
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
-
+import random
+from scrapy.conf import settings
+from pymongo import MongoClient
 
 class RediszhihuSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -54,3 +56,38 @@ class RediszhihuSpiderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+class UAMiddleware(object):
+    user_agent_list = settings['USER_AGENT_LIST']
+
+    def process_request(self, request, spider):
+        ua = random.choice(self.user_agent_list)
+        request.headers['User-Agent'] = ua
+
+
+class ProxyMiddleware(object):
+    ip_list = settings['IP_LIST']
+
+    def process_request(self, request, spider):
+        ip = random.choice(self.ip_list)
+        request.meta['proxy'] = ip
+
+
+cookie_list = []
+
+MONGO_DB_HOST = settings.MONGODB_HOST
+MONGO_DB_PORT = settings.MONGODB_PORT
+conn = MongoClient(MONGO_DB_HOST, MONGO_DB_PORT)
+
+db = conn.scrapy_session
+
+for item in db.cookie.find():
+    item.pop('_id')
+    print(cookie_list.append(item))
+
+class CookieMiddleware(object):
+
+    def process_request(self, request, spider):
+
+        cookie = random.choice(cookie_list)
+        request.cookies = cookie
