@@ -44,4 +44,8 @@ lpush zhihu:start_urls https://www.zhihu.com/api/v4/members/stone-cok/followees?
 友情提示: 每个容器会占用 40MB+ 内存大小，请根据自己需求开启容器的数量。
 
 ## 验证 Cookie 是否失效
-
+验证 Cookie 也是使用简单的多少时间内，使用 Mongo 里面的 Cookie 列表进行逐一请求进行排查，可以设置 `TimeCounter` 变量设置时间，默认时间为 `60秒`，单位是 `秒`，执行命令:
+```
+$ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu python rediszhihu/remove_abandoned_cookie.py
+```
+如果 Cookie 没问题会打印，如果有问题会先打印出有问题的 Cookie 并删除。
