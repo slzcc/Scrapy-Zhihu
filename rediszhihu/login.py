@@ -4,6 +4,8 @@ import requests, re, json, time, os, os.path, sys
 from PIL import Image
 import traceback
 import json
+from pymongo import MongoClient
+
 
 # 模拟知乎登陆，主要是获取验证码登陆
 _zhihu_url = 'https://www.zhihu.com'
@@ -20,7 +22,8 @@ header_data = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,
                'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36'
 
                }
-cookie_list = []
+conn = MongoClient('mongodb://localhost:27017/')
+db = conn.scrapy_session
 
 class ZhiHu():
     _session = None
@@ -40,7 +43,6 @@ class ZhiHu():
             f.write(r.content)
         # 显示验证码
         try:
-            print("haha")
             im = Image.open("code.gif")
             im.show()
         except:
@@ -59,7 +61,7 @@ class ZhiHu():
         global _session
         global header_data
         global xsrf
-        global cookie_list
+        global db
         r = _session.get('https://www.zhihu.com', headers=header_data, verify=True)
         self.xsrf = re.findall('name="_xsrf" value="([\S\s]*?)"', r.text)[0]
 
@@ -89,8 +91,7 @@ class ZhiHu():
 
             cookie = _session.cookies.get_dict()
             print(cookie)
-            cookie_list.append(cookie)
-            print(cookie_list)
+            db.cookie.insert(cookie)
 
         else:
             print('登陆出现问题。。。。')
@@ -269,3 +270,5 @@ class ZhiHu():
 
 zh=ZhiHu()
 zh.do_first()
+for item in db.cookie.find():
+    print(item)

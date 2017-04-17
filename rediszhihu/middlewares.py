@@ -8,7 +8,8 @@
 from scrapy import signals
 import random
 from scrapy.conf import settings
-from .login import cookie_list
+# from .login import cookie_list
+from pymongo import MongoClient
 
 class RediszhihuSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -72,8 +73,17 @@ class ProxyMiddleware(object):
         ip = random.choice(self.ip_list)
         request.meta['proxy'] = ip
 
+
+cookie_list = []
+conn = MongoClient('mongodb://localhost:27017/')
+db = conn.scrapy_session
+for item in db.cookie.find():
+    item.pop('_id')
+    print(cookie_list.append(item))
+
 class CookieMiddleware(object):
 
     def process_request(self, request, spider):
+
         cookie = random.choice(cookie_list)
         request.cookies = cookie
