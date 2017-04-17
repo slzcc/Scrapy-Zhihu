@@ -79,7 +79,7 @@ cookie_list = []
 MONGODB_HOST = os.getenv('MONGODB_DB_HOST')
 MONGODB_PORT = os.getenv('MONGODB_DB_PORT')
 
-conn = MongoClient(MONGODB_HOST, MONGODB_PORT)
+conn = MongoClient(MONGODB_HOST, int(MONGODB_PORT))
 
 db = conn.scrapy_session
 

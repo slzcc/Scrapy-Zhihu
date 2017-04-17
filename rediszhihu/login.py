@@ -27,7 +27,7 @@ header_data = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,
 MONGODB_HOST = os.getenv('MONGODB_DB_HOST')
 MONGODB_PORT = os.getenv('MONGODB_DB_PORT')
 
-conn = MongoClient(MONGODB_HOST, MONGODB_PORT)
+conn = MongoClient(MONGODB_HOST, int(MONGODB_PORT))
 
 db = conn.scrapy_session
 
