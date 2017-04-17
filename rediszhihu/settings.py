@@ -71,7 +71,7 @@ DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 # }
 
 DOWNLOADER_MIDDLEWARES = {
-   # 'rediszhihu.middlewares.UAMiddleware': 543,
+   'rediszhihu.middlewares.UAMiddleware': 543,
    # 'rediszhihu.middlewares.ProxyMiddleware': 544,
    'rediszhihu.middlewares.CookieMiddleware': 545,
 
