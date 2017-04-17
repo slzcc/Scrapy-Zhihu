@@ -7,5 +7,7 @@ ENV REDIS_DB_HOST=127.0.0.1 \
     REDIS_DB_PORT=6379 \
     MONGODB_DB_HOST=127.0.0.1 \
     MONGODB_DB_PORT=27017
+    
+WORKDIR /Scrapy-Zhihu
 
 CMD ["python", "main.py"]
