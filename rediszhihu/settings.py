@@ -118,14 +118,11 @@ SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderPriorityQueue"
 REDIS_HOST = os.getenv('REDIS_DB_HOST')
 REDIS_PORT = int(os.getenv('REDIS_DB_PORT'))
 
-
 MONGODB_HOST = os.getenv('MONGODB_DB_HOST')
 MONGODB_PORT = int(os.getenv('MONGODB_DB_PORT'))
 
-MONGODB_DBNAME = 'zhihu'
-MONGODB_DOCNAME = 'user_information'
-
-
+MONGODB_DBNAME = os.getenv('MONGODB_DB_DBNAME')
+MONGODB_DOCNAME = os.getenv('MONGODB_DB_DOCNAME')
 
 USER_AGENT_LIST = [
     "Mozilla/5.0 (Linux; U; Android 2.3.6; en-us; Nexus S Build/GRK39F) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
@@ -193,4 +190,3 @@ USER_AGENT_LIST = [
 ]
 
 IP_LIST = ['http://101.200.83.130:8787']
-
