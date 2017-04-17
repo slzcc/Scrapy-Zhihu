@@ -63,7 +63,7 @@ $ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:latest pytho
 ## 爬取用户信息数量查询
 查看已经爬取用户信息的数量，可以使用内置已经写好的方法进行查询:
 ```
-$ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:latest python rediszhihu/number_queries.py
+$ docker run --rm -i --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:latest python rediszhihu/number_queries.py
 ```
 
 队列展示图:
