@@ -95,15 +95,26 @@ $ docker run -e ELASTICSEARCH_DB_SERVER=http://localhost:9200 --rm -it --net hos
   * num 为查看爬取数据总数。
   * cookie 查看 cookie 列表。
 
-队列展示图:
+## 展示图
+### 队列展示图
+列出队列等待被消费的 `URL`
 ![Redis Lists up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/redis01.png)
-数据展示图:
+### 数据展示图
+元数据信息
 ![Elasticsearch 01 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch01.png)
+索引信息
 ![Elasticsearch 02 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch02.png)
+性别饼图
 ![Elasticsearch 03 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch03.png)
+粉丝名次柱状图
 ![Elasticsearch 04 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch04.png)
+行业分布柱状图
 ![Elasticsearch 05 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch05.png)
+职业分布柱状图
 ![Elasticsearch 06 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch06.png)
+人数数量柱状图
 ![Elasticsearch 07 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch07.png)
+员工数量柱状图
 ![Elasticsearch 08 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch08.png)
+校友数量柱状图
 ![Elasticsearch 09 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch09.png)
