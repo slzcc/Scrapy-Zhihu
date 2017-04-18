@@ -45,7 +45,7 @@ ELASTICSEARCH_COOKIE_TYPE=item
 ELASTICSEARCH_DATA_INDEX=scrapy-zhihu
 ELASTICSEARCH_DATA_TYPE=item
 ```
-后续查询所需的环境变量, 其中 `QUERY_ACCOUNT_NUMBER` 是执行 `rediszhihu/number_queries.py` 查询 Cookie 的最大查询数量，`QUERY_DATA_NUMBER` 是执行 `rediszhihu/number_queries.py` 查询数据最大显示数量，`TimeCounter` 是执行 `rediszhihu/remove_abandoned_cookie.py` 后检测每天 Cookie 验证的时间，单位是`秒`。
+后续查询所需的环境变量, 其中 `QUERY_ACCOUNT_NUMBER` 是执行 `rediszhihu/number_queries.py` 查询 Cookie 的最大查询数量，`QUERY_DATA_NUMBER` 是执行 `rediszhihu/number_queries.py` 查询数据最大显示数量，`TimeCounter` 是执行 `rediszhihu/remove_abandoned_cookie.py` 后检测每次 Cookie 验证的时间，单位是`秒`。
 ```
 QUERY_ACCOUNT_NUMBER=100
 QUERY_DATA_NUMBER=5
