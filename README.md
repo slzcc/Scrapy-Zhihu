@@ -20,7 +20,7 @@ Elasticsearch 会保存 Cookie 信息，和最终爬取的用户信息, 使用�
 
 原理是需要使用用户的 Cookie 进行爬虫的登入授权，其中需要使用一台拥有图形化系统的服务器进行激活码手动填写，执行:
 ```
-$ docker run --rm -it -v ${PWD}/code:/Scrapy-Zhihu/code --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:elasticsearch python rediszhihu/login.py
+$ docker run -e ELASTICSEARCH_DB_SERVER=http://localhost:9200 --rm -it -v ${PWD}/code:/Scrapy-Zhihu/code --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:elasticsearch python rediszhihu/login.py
 ```
 >注意: 请结合下列的环境变量说明修改自己所需的环境。
 
@@ -61,7 +61,7 @@ $ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:elasticsearc
 
 可以使用 `Swarm` 集群模式启动 10 数量的服务:
 ```
-$ docker service create --name scrapy_zhihu -e MONGODB_DB_HOST=127.0.0.1 -e REDIS_DB_HOST=127.0.0.1 --replicas 10 registry.aliyuncs.com/slzcc/scrapy_zhihu:elasticsearch
+$ docker service create --name scrapy_zhihu -e ELASTICSEARCH_DB_SERVER=http://localhost:9200 -e REDIS_DB_HOST=127.0.0.1 --replicas 10 registry.aliyuncs.com/slzcc/scrapy_zhihu:elasticsearch
 ```
 
 因为默认爬虫是会在 Redis 队列获取 URL 进行爬取的，所以需要手动填入 URL 进行爬虫的激活，进入 Redis 后执行:
@@ -76,7 +76,7 @@ lpush zhihu:start_urls https://www.zhihu.com/api/v4/members/stone-cok/followees?
 ## 验证 Cookie 是否失效
 验证 Cookie 也是使用简单的多少时间内进行一次验证，使用 Mongo 里面的 Cookie 列表进行逐一请求进行排查，可以设置 `TimeCounter` 变量设置时间，默认时间为 `60秒`，单位是 `秒`，执行命令:
 ```
-$ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:elasticsearch python rediszhihu/remove_abandoned_cookie.py
+$ docker run -e ELASTICSEARCH_DB_SERVER=http://localhost:9200 -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:elasticsearch python rediszhihu/remove_abandoned_cookie.py
 ```
 如果 Cookie 没问题会打印，如果有问题会先打印出有问题的 Cookie 并删除，容器执行完会自动退出，这里需要配合集群进行启动从而保证 Cookie 验证容器持续进行检测。
 
@@ -87,7 +87,7 @@ $ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:elasticsearc
 ## 爬取用户信息数量查询
 查看已经爬取用户信息的数量,信息内容,Cookie 列表,可以使用内置已经写好的方法进行查询:
 ```
-$ docker run --rm -it --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:elasticsearch python rediszhihu/number_queries.py
+$ docker run -e ELASTICSEARCH_DB_SERVER=http://localhost:9200 --rm -it --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:elasticsearch python rediszhihu/number_queries.py
 ```
 执行后会进入交互模式，请更换对应的环境编辑进行检测，输入的命令说明:
   * data 为直接查看数据。
