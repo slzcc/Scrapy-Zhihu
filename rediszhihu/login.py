@@ -1,12 +1,12 @@
 # /usr/bin/python
-import requests, re, json, time, os, os.path, sys
-# 显示验证码
+import requests, re, json, time, os.path, sys
 from PIL import Image
 import traceback
 import json
 import os
-from pymongo import MongoClient
-
+from elasticsearch import Elasticsearch
+from datetime import datetime
+from rediszhihu.env_config import SystemEnv
 
 # 模拟知乎登陆，主要是获取验证码登陆
 _zhihu_url = 'https://www.zhihu.com'
@@ -24,12 +24,10 @@ header_data = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,
 
                }
 
-MONGODB_HOST = os.getenv('MONGODB_DB_HOST')
-MONGODB_PORT = os.getenv('MONGODB_DB_PORT')
 
-conn = MongoClient(MONGODB_HOST, int(MONGODB_PORT))
+Cookie_urls = "{}/{}/{}/_search?size={}".format(SystemEnv['ELASTICSEARCH_DB_SERVER'], SystemEnv['ELASTICSEARCH_COOKIE_INDEX'], SystemEnv['ELASTICSEARCH_COOKIE_TYPE'], SystemEnv['QUERY_ACCOUNT_NUMBER'])
 
-db = conn.scrapy_session
+es = Elasticsearch([SystemEnv['ELASTICSEARCH_DB_SERVER']])
 
 class ZhiHu():
     _session = None
@@ -97,8 +95,9 @@ class ZhiHu():
 
             cookie = _session.cookies.get_dict()
             print(cookie)
-            db.cookie.insert(cookie)
-
+            cookie['@timestamp'] = datetime.now()
+            es.index(index=SystemEnv['ELASTICSEARCH_COOKIE_INDEX'], doc_type=SystemEnv['ELASTICSEARCH_COOKIE_TYPE'], body=cookie)
+            es.indices.refresh(index=SystemEnv['ELASTICSEARCH_COOKIE_INDEX'])
         else:
             print('登陆出现问题。。。。')
 
@@ -268,13 +267,16 @@ class ZhiHu():
         global _session
         _session = requests.session()
         if os.path.exists('cookiefile'):
-            # print('have cookies')
             self.read_cookies()
-            # self.get_text(question_url)
         else:
             self.login()
 
 zh=ZhiHu()
 zh.do_first()
-for item in db.cookie.find():
-    print(item)
+es_list = requests.get(Cookie_urls)
+data = json.loads(es_list.text)
+for i in data['hits']['hits']:
+    _id = i['_id']
+    print('*--------------------------------------------------------------------------------------------------------------------------------------*')
+    print('The Cookie Data ID: {}, Content is: {}'.format(_id, i['_source']))
+    print('*--------------------------------------------------------------------------------------------------------------------------------------*')

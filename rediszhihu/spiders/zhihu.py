@@ -5,6 +5,7 @@ import redis
 import os
 from scrapy_redis.spiders import RedisSpider
 from rediszhihu.items import RediszhihuItem
+from rediszhihu.env_config import SystemEnv
 
 class ZhihuSpider(RedisSpider):
     name = "zhihu"
@@ -25,20 +26,7 @@ class ZhihuSpider(RedisSpider):
     login_url = 'https://www.zhihu.com/login/email'
     url = 'https://www.zhihu.com/api/v4/members/stone-cok?include=locations%2Cemployments%2Cgender%2Ceducations%2Cbusiness%2Cvoteup_count%2Cthanked_Count%2Cfollower_count%2Cfollowing_count%2Ccover_url%2Cfollowing_topic_count%2Cfollowing_question_count%2Cfollowing_favlists_count%2Cfollowing_columns_count%2Canswer_count%2Carticles_count%2Cpins_count%2Cquestion_count%2Cfavorite_count%2Cfavorited_count%2Clogs_count%2Cmarked_answers_count%2Cmarked_answers_text%2Cmessage_thread_token%2Caccount_status%2Cis_active%2Cis_force_renamed%2Cis_bind_sina%2Csina_weibo_url%2Csina_weibo_name%2Cshow_sina_weibo%2Cis_blocking%2Cis_blocked%2Cmutual_followees_count%2Cvote_to_count%2Cvote_from_count%2Cthank_to_count%2Cthank_from_count%2Cthanked_count%2Cdescription%2Chosted_live_count%2Cparticipated_live_count%2Callow_message%2Cindustry_category%2Corg_name%2Corg_homepage%2Cbadge%5B%3F(type%3Dbest_answerer)%5D.topics',
 
-    REDIS_HOST = os.getenv('REDIS_DB_HOST')
-    REDIS_PORT = os.getenv('REDIS_DB_PORT')
-    redis_q = redis.StrictRedis(connection_pool=redis.ConnectionPool(host=REDIS_HOST, port=REDIS_PORT, db=0))
-
-    # def getsource(self, url):
-    #     global hasViewed  # 修改全局变量,需要使用global关键字
-    #     print(url)
-    #     html = requests.get(url)
-    #     hasViewed.append(url)
-    #
-    # def threadGetSource(self, url):
-    #     print(url)
-    #     x = threading.Thread(target=self.getsource, args=(url,))  # 这里的args=(url,) 逗号是必须的,因为加了逗号才是只有一个元素的元组
-    #     x.start()
+    redis_q = redis.StrictRedis(connection_pool=redis.ConnectionPool(host=SystemEnv['REDIS_HOST'], port=SystemEnv['REDIS_PORT'], db=0))
 
     def parse(self, response):
         source = RediszhihuItem()
@@ -51,25 +39,14 @@ class ZhihuSpider(RedisSpider):
             yield scrapy.Request(
                 url=user_info_apt,
                 headers=self.headers,
-                # meta={
-                #     # 'proxy': UsersConfig['proxy'],
-                #     'cookiejar': response.meta['cookiejar'],
-                #     'from': {
-                #         'sign': 'else',
-                #         'data': {}
-                #     }
-                # },
                 callback=self.user_start,
                 dont_filter=True
             )
-
 
     def user_start(self, response):
         source = RediszhihuItem()
         source['info_list'] = json.loads(response.body_as_unicode())
         source['token'] = source['info_list']['url_token']
-        # print(source)
-        # print(source['info_list']['url_token'])
-        print('token', source['token'])
+        print('Collected by the User Token: ', source['token'])
         self.Counter += 1
         yield source

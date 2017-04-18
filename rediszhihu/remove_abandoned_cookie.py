@@ -1,8 +1,8 @@
-from pymongo import MongoClient
 import requests
 import json
 import time
-import os
+from elasticsearch import Elasticsearch
+from rediszhihu.env_config import SystemEnv
 
 header = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -14,25 +14,25 @@ header = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
     }
 
-urls= 'https://www.zhihu.com/api/v4/members/stone-cok/followees?include=data%5B*%5D.url_token&offset=0&per_page=30&limit=30'
+Cookie_urls = "{}/{}/{}/_search?size={}".format(SystemEnv['ELASTICSEARCH_DB_SERVER'], SystemEnv['ELASTICSEARCH_COOKIE_INDEX'], SystemEnv['ELASTICSEARCH_COOKIE_TYPE'], SystemEnv['QUERY_ACCOUNT_NUMBER'])
 
-MONGODB_HOST = os.getenv('MONGODB_DB_HOST')
-MONGODB_PORT = int(os.getenv('MONGODB_DB_PORT'))
-TimeCounter = int(os.getenv('TimeCounter'))
+es = Elasticsearch([SystemEnv['ELASTICSEARCH_DB_SERVER]']])
 
-conn = MongoClient(MONGODB_HOST, MONGODB_PORT)
+Validation_urls= 'https://www.zhihu.com/api/v4/members/stone-cok/followees?include=data%5B*%5D.url_token&offset=0&per_page=30&limit=30'
 
-db = conn.scrapy_session
-
-cookie_list = []
-
-for item in db.cookie.find():
-    Cookie_id = item.pop('_id')
-    time.sleep(TimeCounter)
-    source = requests.get(urls, headers=header, cookies=item).content
+es_list = requests.get(Cookie_urls)
+data = json.loads(es_list.text)
+for i in data['hits']['hits']:
+    _id = i['_id']
+    i['_source'].pop('@timestamp')
+    cookie = i['_source']
+    time.sleep(SystemEnv['TimeCounter'])
+    source = requests.get(Validation_urls, headers=header, cookies=cookie).content
     source = json.loads(source)['paging']['is_start']
     if source == True:
-        print('By verifying the Cookie: ', item)
+        print('By verifying the Cookie: ', cookie)
     else:
-        print('Delete the Cookie: ', item)
-        db.cookie.remove({'_id': Cookie_id})
+        print('Delete the Cookie: {}, ID is: {}'.format(cookie, _id), )
+        es.delete(index=SystemEnv['ELASTICSEARCH_COOKIE_INDEX'], doc_type=SystemEnv['ELASTICSEARCH_COOKIE_TYPE'], id=_id)
+
+

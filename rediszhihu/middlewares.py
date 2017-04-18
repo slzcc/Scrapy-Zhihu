@@ -5,11 +5,12 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+from rediszhihu.env_config import SystemEnv
+from scrapy.conf import settings
 from scrapy import signals
 import random
-import os
-from scrapy.conf import settings
-from pymongo import MongoClient
+import requests
+import json
 
 class RediszhihuSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -75,17 +76,16 @@ class ProxyMiddleware(object):
 
 
 cookie_list = []
+Cookie_urls = "{}/{}/{}/_search?size={}".format(SystemEnv['ELASTICSEARCH_DB_SERVER'], SystemEnv['ELASTICSEARCH_COOKIE_INDEX'], SystemEnv['ELASTICSEARCH_COOKIE_TYPE'], SystemEnv['QUERY_ACCOUNT_NUMBER'])
 
-MONGODB_HOST = os.getenv('MONGODB_DB_HOST')
-MONGODB_PORT = os.getenv('MONGODB_DB_PORT')
+es_list = requests.get(Cookie_urls)
+data = json.loads(es_list.text)
 
-conn = MongoClient(MONGODB_HOST, int(MONGODB_PORT))
+for i in data['hits']['hits']:
+    _id = i['_id']
+    i['_source'].pop('@timestamp')
+    cookie_list.append(i['_source'])
 
-db = conn.scrapy_session
-
-for item in db.cookie.find():
-    item.pop('_id')
-    print(cookie_list.append(item))
 
 class CookieMiddleware(object):
 
