@@ -58,7 +58,7 @@ TimeCounter=60
 ```
 $ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:elasticsearch
 ```
-请自行修改环境变量适合自己的环境执行爬虫的启动, 测试开启数十个容器进行爬取数据无任何问题。
+请自行修改环境变量适合自己的环境执行爬虫的启动, 测试开启数十个容器进行爬取数据无任何问题, 只要容器的机器内存足够大可以尝试上百数量容器进行爬取进行测试。
 
 可以使用 `Swarm` 集群模式启动 10 数量的服务:
 ```
