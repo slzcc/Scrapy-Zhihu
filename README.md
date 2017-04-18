@@ -1,4 +1,7 @@
 # Scrapy 爬虫登入 `知乎网` 使用 `API` 爬取用户信息
+
+需要 Elasticsearch 项目请移步: https://github.com/slzcc/Scrapy-Zhihu/tree/docker-elasticsearch
+
 在使用此项目时请先了解 Scrapy 项目源码如何实现的:
 ```
 $ git clone https://github.com/slzcc/Scrapy-Zhihu.git
