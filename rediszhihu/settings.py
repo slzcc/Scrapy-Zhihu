@@ -118,6 +118,16 @@ SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderPriorityQueue"
 REDIS_HOST = os.getenv('MONGODB_DB_HOST')
 REDIS_PORT = int(os.getenv('MONGODB_DB_HOST'))
 
+ELASTICSEARCH_DB_SERVER = os.getenv('ELASTICSEARCH_DB_SERVER')
+ELASTICSEARCH_COOKIE_INDEX = os.getenv('ELASTICSEARCH_COOKIE_INDEX')
+ELASTICSEARCH_COOKIE_TYPE = os.getenv('ELASTICSEARCH_COOKIE_TYPE')
+ELASTICSEARCH_DATA_INDEX = os.getenv('ELASTICSEARCH_DATA_INDEX')
+ELASTICSEARCH_DATA_TYPE = os.getenv('ELASTICSEARCH_DATA_TYPE')
+QUERY_ACCOUNT_NUMBER = int(os.getenv('QUERY_ACCOUNT_NUMBER'))
+QUERY_DATA_NUMBER = int(os.getenv('QUERY_DATA_NUMBER'))
+TimeCounter = int(os.getenv('TimeCounter'))
+
+
 USER_AGENT_LIST = [
     "Mozilla/5.0 (Linux; U; Android 2.3.6; en-us; Nexus S Build/GRK39F) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
     "Avant Browser/1.2.789rel1 (http://www.avantbrowser.com)",

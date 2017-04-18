@@ -5,7 +5,6 @@ import redis
 import os
 from scrapy_redis.spiders import RedisSpider
 from rediszhihu.items import RediszhihuItem
-from rediszhihu.env_config import SystemEnv
 
 class ZhihuSpider(RedisSpider):
     name = "zhihu"
@@ -21,6 +20,21 @@ class ZhihuSpider(RedisSpider):
         'Host': 'www.zhihu.com',
         'Upgrade-Insecure-Requests': '1',
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
+    }
+
+    SystemEnv = {
+
+        'ELASTICSEARCH_DB_SERVER': os.getenv('ELASTICSEARCH_DB_SERVER'),
+        'ELASTICSEARCH_COOKIE_INDEX': os.getenv('ELASTICSEARCH_COOKIE_INDEX'),
+        'ELASTICSEARCH_COOKIE_TYPE': os.getenv('ELASTICSEARCH_COOKIE_TYPE'),
+        'ELASTICSEARCH_DATA_INDEX': os.getenv('ELASTICSEARCH_DATA_INDEX'),
+        'ELASTICSEARCH_DATA_TYPE': os.getenv('ELASTICSEARCH_DATA_TYPE'),
+        'QUERY_ACCOUNT_NUMBER': int(os.getenv('QUERY_ACCOUNT_NUMBER')),
+        'QUERY_DATA_NUMBER': int(os.getenv('QUERY_DATA_NUMBER')),
+        'TimeCounter': int(os.getenv('TimeCounter')),
+        'REDIS_HOST': os.getenv('REDIS_HOST'),
+        'REDIS_PORT': int(os.getenv('REDIS_PORT'))
+
     }
 
     login_url = 'https://www.zhihu.com/login/email'

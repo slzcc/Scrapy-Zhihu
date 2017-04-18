@@ -5,12 +5,12 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-from .env_config import SystemEnv
 from scrapy.conf import settings
 from scrapy import signals
 import random
 import requests
 import json
+import os
 
 class RediszhihuSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -74,6 +74,20 @@ class ProxyMiddleware(object):
         ip = random.choice(self.ip_list)
         request.meta['proxy'] = ip
 
+SystemEnv = {
+
+    'ELASTICSEARCH_DB_SERVER': os.getenv('ELASTICSEARCH_DB_SERVER'),
+    'ELASTICSEARCH_COOKIE_INDEX': os.getenv('ELASTICSEARCH_COOKIE_INDEX'),
+    'ELASTICSEARCH_COOKIE_TYPE': os.getenv('ELASTICSEARCH_COOKIE_TYPE'),
+    'ELASTICSEARCH_DATA_INDEX': os.getenv('ELASTICSEARCH_DATA_INDEX'),
+    'ELASTICSEARCH_DATA_TYPE': os.getenv('ELASTICSEARCH_DATA_TYPE'),
+    'QUERY_ACCOUNT_NUMBER': int(os.getenv('QUERY_ACCOUNT_NUMBER')),
+    'QUERY_DATA_NUMBER': int(os.getenv('QUERY_DATA_NUMBER')),
+    'TimeCounter': int(os.getenv('TimeCounter')),
+    'REDIS_HOST': os.getenv('REDIS_HOST'),
+    'REDIS_PORT': int(os.getenv('REDIS_PORT'))
+
+}
 
 cookie_list = []
 Cookie_urls = "{}/{}/{}/_search?size={}".format(SystemEnv['ELASTICSEARCH_DB_SERVER'], SystemEnv['ELASTICSEARCH_COOKIE_INDEX'], SystemEnv['ELASTICSEARCH_COOKIE_TYPE'], SystemEnv['QUERY_ACCOUNT_NUMBER'])
