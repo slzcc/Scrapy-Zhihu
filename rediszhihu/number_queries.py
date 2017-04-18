@@ -9,11 +9,11 @@ SystemEnv = {
     'ELASTICSEARCH_COOKIE_TYPE': os.getenv('ELASTICSEARCH_COOKIE_TYPE'),
     'ELASTICSEARCH_DATA_INDEX': os.getenv('ELASTICSEARCH_DATA_INDEX'),
     'ELASTICSEARCH_DATA_TYPE': os.getenv('ELASTICSEARCH_DATA_TYPE'),
-    'REDIS_HOST': os.getenv('REDIS_HOST'),
+    'REDIS_HOST': os.getenv('REDIS_DB_HOST'),
     'QUERY_ACCOUNT_NUMBER': os.getenv('QUERY_ACCOUNT_NUMBER'),
     'QUERY_DATA_NUMBER': os.getenv('QUERY_DATA_NUMBER'),
     'TimeCounter': os.getenv('TimeCounter'),
-    'REDIS_PORT': os.getenv('REDIS_PORT')
+    'REDIS_PORT': os.getenv('REDIS_DB_PORT')
 
 }
 
@@ -30,7 +30,10 @@ while True:
                                                         int(SystemEnv['QUERY_DATA_NUMBER']))
         es_list = requests.get(Data_urls)
         data = json.loads(es_list.text)
+        print('<--------------------------------------------------------------------------------------------------------------------------------------*')
         print(data)
+        print('*-------------------------------------------------------------------------------------------------------------------------------------->\n')
+
     elif Pass == 'num':
         Data_urls = "{}/{}/{}/_search".format(SystemEnv['ELASTICSEARCH_DB_SERVER'],
                                                         SystemEnv['ELASTICSEARCH_DATA_INDEX'],
@@ -38,12 +41,21 @@ while True:
                                                         )
         es_list = requests.get(Data_urls)
         data = json.loads(es_list.text)
-        print(data['hits']['hits']['total'])
+        print('<--------------------------------------------------------------------------------------------------------------------------------------*')
+        print('Information for a total of: ', data['hits']['total'] + 'article')
+        print('*-------------------------------------------------------------------------------------------------------------------------------------->\n')
+
     elif Pass == 'cookie':
         Cookie_urls = "{}/{}/{}/_search?size={}".format(SystemEnv['ELASTICSEARCH_DB_SERVER'],
                                                       SystemEnv['ELASTICSEARCH_COOKIE_INDEX'],
                                                       SystemEnv['ELASTICSEARCH_COOKIE_TYPE'],
-                                                      int(SystemEnv['QUERY_DATA_NUMBER']))
+                                                      int(SystemEnv['QUERY_ACCOUNT_NUMBER']))
         es_list = requests.get(Cookie_urls)
         data = json.loads(es_list.text)
-        print(data)
+        data = json.loads(es_list.text)
+        for i in data['hits']['hits']:
+            _id = i['_id']
+            print('Cookie List: ')
+            print('<--------------------------------------------------------------------------------------------------------------------------------------*')
+            print('The Cookie Data ID: {}\n\nContent is: \n{}\n'.format(_id, i['_source']))
+            print('*-------------------------------------------------------------------------------------------------------------------------------------->\n')

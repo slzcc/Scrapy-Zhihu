@@ -29,11 +29,11 @@ class ZhihuSpider(RedisSpider):
         'ELASTICSEARCH_COOKIE_TYPE': os.getenv('ELASTICSEARCH_COOKIE_TYPE'),
         'ELASTICSEARCH_DATA_INDEX': os.getenv('ELASTICSEARCH_DATA_INDEX'),
         'ELASTICSEARCH_DATA_TYPE': os.getenv('ELASTICSEARCH_DATA_TYPE'),
-        'REDIS_HOST': os.getenv('REDIS_HOST'),
+        'REDIS_HOST': os.getenv('REDIS_DB_HOST'),
         'QUERY_ACCOUNT_NUMBER': os.getenv('QUERY_ACCOUNT_NUMBER'),
         'QUERY_DATA_NUMBER': os.getenv('QUERY_DATA_NUMBER'),
         'TimeCounter': os.getenv('TimeCounter'),
-        'REDIS_PORT': os.getenv('REDIS_PORT')
+        'REDIS_PORT': os.getenv('REDIS_DB_PORT')
 
     }
 

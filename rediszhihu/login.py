@@ -30,17 +30,17 @@ SystemEnv = {
     'ELASTICSEARCH_COOKIE_TYPE': os.getenv('ELASTICSEARCH_COOKIE_TYPE'),
     'ELASTICSEARCH_DATA_INDEX': os.getenv('ELASTICSEARCH_DATA_INDEX'),
     'ELASTICSEARCH_DATA_TYPE': os.getenv('ELASTICSEARCH_DATA_TYPE'),
-    'QUERY_ACCOUNT_NUMBER': int(os.getenv('QUERY_ACCOUNT_NUMBER')),
-    'QUERY_DATA_NUMBER': int(os.getenv('QUERY_DATA_NUMBER')),
-    'TimeCounter': int(os.getenv('TimeCounter')),
-    'REDIS_HOST': os.getenv('REDIS_HOST'),
-    'REDIS_PORT': int(os.getenv('REDIS_PORT'))
+    'REDIS_HOST': os.getenv('REDIS_DB_HOST'),
+    'QUERY_ACCOUNT_NUMBER': os.getenv('QUERY_ACCOUNT_NUMBER'),
+    'QUERY_DATA_NUMBER': os.getenv('QUERY_DATA_NUMBER'),
+    'TimeCounter': os.getenv('TimeCounter'),
+    'REDIS_PORT': os.getenv('REDIS_DB_PORT')
 
 }
 
-Cookie_urls = "{}/{}/{}/_search?size={}".format(SystemEnv['ELASTICSEARCH_DB_SERVER'], SystemEnv['ELASTICSEARCH_COOKIE_INDEX'], SystemEnv['ELASTICSEARCH_COOKIE_TYPE'], SystemEnv['QUERY_ACCOUNT_NUMBER'])
+Cookie_urls = "{}/{}/{}/_search?size={}".format(SystemEnv['ELASTICSEARCH_DB_SERVER'], SystemEnv['ELASTICSEARCH_COOKIE_INDEX'], SystemEnv['ELASTICSEARCH_COOKIE_TYPE'], int(SystemEnv['QUERY_ACCOUNT_NUMBER']))
 
-es = Elasticsearch([SystemEnv['ELASTICSEARCH_DB_SERVER']])
+es = Elasticsearch(SystemEnv['ELASTICSEARCH_DB_SERVER'])
 
 class ZhiHu():
     _session = None
@@ -290,6 +290,7 @@ es_list = requests.get(Cookie_urls)
 data = json.loads(es_list.text)
 for i in data['hits']['hits']:
     _id = i['_id']
+    print('Cookie List: ')
     print('*--------------------------------------------------------------------------------------------------------------------------------------*')
     print('The Cookie Data ID: {}, Content is: {}'.format(_id, i['_source']))
     print('*--------------------------------------------------------------------------------------------------------------------------------------*')

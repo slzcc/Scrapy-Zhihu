@@ -21,18 +21,18 @@ SystemEnv = {
     'ELASTICSEARCH_COOKIE_TYPE': os.getenv('ELASTICSEARCH_COOKIE_TYPE'),
     'ELASTICSEARCH_DATA_INDEX': os.getenv('ELASTICSEARCH_DATA_INDEX'),
     'ELASTICSEARCH_DATA_TYPE': os.getenv('ELASTICSEARCH_DATA_TYPE'),
-    'REDIS_HOST': os.getenv('REDIS_HOST'),
+    'REDIS_HOST': os.getenv('REDIS_DB_HOST'),
     'QUERY_ACCOUNT_NUMBER': os.getenv('QUERY_ACCOUNT_NUMBER'),
     'QUERY_DATA_NUMBER': os.getenv('QUERY_DATA_NUMBER'),
     'TimeCounter': os.getenv('TimeCounter'),
-    'REDIS_PORT': os.getenv('REDIS_PORT')
+    'REDIS_PORT': os.getenv('REDIS_DB_PORT')
 
 }
 
 Cookie_urls = "{}/{}/{}/_search?size={}".format(SystemEnv['ELASTICSEARCH_DB_SERVER'], SystemEnv['ELASTICSEARCH_COOKIE_INDEX'], SystemEnv['ELASTICSEARCH_COOKIE_TYPE'], int(SystemEnv['QUERY_ACCOUNT_NUMBER']))
 
-es = Elasticsearch([SystemEnv['ELASTICSEARCH_DB_SERVER]']])
-
+es = Elasticsearch(SystemEnv['ELASTICSEARCH_DB_SERVER'])
+#
 Validation_urls= 'https://www.zhihu.com/api/v4/members/stone-cok/followees?include=data%5B*%5D.url_token&offset=0&per_page=30&limit=30'
 
 es_list = requests.get(Cookie_urls)
@@ -45,9 +45,8 @@ for i in data['hits']['hits']:
     source = requests.get(Validation_urls, headers=header, cookies=cookie).content
     source = json.loads(source)['paging']['is_start']
     if source == True:
+        print( 'Elasticsearch Service address: ', SystemEnv['ELASTICSEARCH_DB_SERVER'])
         print('By verifying the Cookie: ', cookie)
     else:
         print('Delete the Cookie: {}, ID is: {}'.format(cookie, _id), )
         es.delete(index=SystemEnv['ELASTICSEARCH_COOKIE_INDEX'], doc_type=SystemEnv['ELASTICSEARCH_COOKIE_TYPE'], id=_id)
-
-
