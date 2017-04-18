@@ -18,6 +18,7 @@ $ docker pull registry.aliyuncs.com/slzcc/scrapy_zhihu:elasticsearch
 Redis 使用 Lists 队列保存需要爬取的 URL，这里是爬虫自己添加 URL 队列, 队列名称为 `zhihu:start_urls`。
 Elasticsearch 会保存 Cookie 信息，和最终爬取的用户信息, 使用的 `index` 名为 `scrapy-zhihu`, type 为 `item`。
 
+## 注册 Cookie
 原理是需要使用用户的 Cookie 进行爬虫的登入授权，其中需要使用一台拥有图形化系统的服务器进行激活码手动填写，执行:
 ```
 $ docker run -e ELASTICSEARCH_DB_SERVER=http://localhost:9200 --rm -it -v ${PWD}/code:/Scrapy-Zhihu/code --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:elasticsearch python rediszhihu/login.py
@@ -95,4 +96,14 @@ $ docker run -e ELASTICSEARCH_DB_SERVER=http://localhost:9200 --rm -it --net hos
   * cookie 查看 cookie 列表。
 
 队列展示图:
+![Redis Lists up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/redis01.png)
 数据展示图:
+![Elasticsearch 01 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch01.png)
+![Elasticsearch 02 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch02.png)
+![Elasticsearch 03 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch03.png)
+![Elasticsearch 04 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch04.png)
+![Elasticsearch 05 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch05.png)
+![Elasticsearch 06 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch06.png)
+![Elasticsearch 07 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch07.png)
+![Elasticsearch 08 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch08.png)
+![Elasticsearch 09 Data up](https://github.com/slzcc/Scrapy-Zhihu/blob/docker-elasticsearch/template/elasticsearch09.png)
