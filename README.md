@@ -60,6 +60,8 @@ $ docker run -d --net host registry.aliyuncs.com/slzcc/scrapy_zhihu:elasticsearc
 ```
 请自行修改环境变量适合自己的环境执行爬虫的启动, 测试开启数十个容器进行爬取数据无任何问题, 只要容器的机器内存足够大可以尝试上百数量容器进行爬取进行测试。
 
+>个人测试 `7` 个容器 1 小时内可以爬到 Elasticsearch 的数据在 1.4W 条左右。
+
 可以使用 `Swarm` 集群模式启动 10 数量的服务:
 ```
 $ docker service create --name scrapy_zhihu -e ELASTICSEARCH_DB_SERVER=http://localhost:9200 -e REDIS_DB_HOST=127.0.0.1 --replicas 10 registry.aliyuncs.com/slzcc/scrapy_zhihu:elasticsearch
