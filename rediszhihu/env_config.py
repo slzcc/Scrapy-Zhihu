@@ -10,7 +10,6 @@ SystemEnv = {
     'ELASTICSEARCH_DATA_TYPE': os.getenv('ELASTICSEARCH_DATA_TYPE'),
     'QUERY_ACCOUNT_NUMBER': int(os.getenv('QUERY_ACCOUNT_NUMBER')),
     'QUERY_DATA_NUMBER': int(os.getenv('QUERY_DATA_NUMBER')),
-    'QUERY_DEMAND': os.getenv('QUERY_DEMAND'),
     'TimeCounter': int(os.getenv('TimeCounter')),
     'REDIS_HOST': os.getenv('REDIS_HOST'),
     'REDIS_PORT': int(os.getenv('REDIS_PORT'))

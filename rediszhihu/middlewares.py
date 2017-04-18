@@ -5,7 +5,7 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-from rediszhihu.env_config import SystemEnv
+from .env_config import SystemEnv
 from scrapy.conf import settings
 from scrapy import signals
 import random

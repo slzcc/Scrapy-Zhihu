@@ -1,4 +1,4 @@
-from rediszhihu.env_config import SystemEnv
+from .env_config import SystemEnv
 import json
 import requests
 

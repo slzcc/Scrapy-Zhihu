@@ -6,7 +6,7 @@ import json
 import os
 from elasticsearch import Elasticsearch
 from datetime import datetime
-from rediszhihu.env_config import SystemEnv
+from .env_config import SystemEnv
 
 # 模拟知乎登陆，主要是获取验证码登陆
 _zhihu_url = 'https://www.zhihu.com'
